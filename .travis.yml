@@ -20,5 +20,5 @@ r_packages:
 - drat
 after_success:
 - R -q -e 'library("covr");codecov()'
-- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && && test $DRAT_DEPLOY == "true" && bash drat.sh
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && test $DRAT_DEPLOY == "true" && bash drat.sh
 - R -q -e "travisci::restart_last_build('cloudyr/awspack')"
