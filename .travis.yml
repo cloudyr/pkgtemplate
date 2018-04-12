@@ -7,6 +7,7 @@ matrix:
       dist: trusty
       sudo: required
       env: R_CODECOV=true
+      env: DRAT_DEPLOY=true
     - os: osx
       osx_image: xcode9.2
     - os: osx
@@ -18,6 +19,6 @@ r_packages:
 - covr
 - drat
 after_success:
-- if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
-#- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash knitreadme.sh
-- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash drat.sh
+- R -q -e 'library("covr");codecov()'
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && && test $DRAT_DEPLOY == "true" && bash drat.sh
+- R -q -e "travisci::restart_last_build('cloudyr/awspack')"
